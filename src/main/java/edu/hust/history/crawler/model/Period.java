@@ -121,7 +121,7 @@ public class Period {
                     }
                 } catch (Exception e) {
                     System.out.println("Không tìm thấy thông tin nhân vật nào. " + e);
-                    throw new RuntimeException(e);
+//                    throw new RuntimeException(e);
                 }
 
                 // Lấy danh sách địa danh liên quan đến thời kỳ lịch sử
@@ -143,7 +143,7 @@ public class Period {
                     }
                 } catch (Exception e) {
                     System.out.println("Không tìm thấy thông tin địa danh nào. " + e);
-                    throw new RuntimeException(e);
+//                    throw new RuntimeException(e);
                 }
             }
         }
