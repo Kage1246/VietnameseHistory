@@ -22,6 +22,11 @@ public class Person {
     private String aliases;
     private String realName;
 
+    public Person() {
+        this.id = count;
+        count++;
+    }
+
     public Person(String name, String href){
         this.id = count;
         count++;
@@ -106,7 +111,7 @@ public class Person {
     }
 
     public void setInfo() throws IOException {
-        Document document = Jsoup.connect(Crawler.URI + this.getHref()).get();
+        Document document = Jsoup.connect(Crawler.URI + this.getHref()).timeout(0).get();
         HashMap<String, String> infoKV = new HashMap<>();
         try {
             Element infoElement = document.getElementsByClass("infobox").get(1);

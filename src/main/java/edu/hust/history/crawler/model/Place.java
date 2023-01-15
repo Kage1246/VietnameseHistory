@@ -15,6 +15,11 @@ public class Place {
     private String name;
     private String href;
 
+    public Place() {
+        this.id = count;
+        count++;
+    }
+
     public Place(String name, String href){
         this.id = count;
         count++;
@@ -43,7 +48,7 @@ public class Place {
     }
 
     public void setInfo() throws IOException {
-        Document document = Jsoup.connect(Crawler.URI + this.getHref()).get();
+        Document document = Jsoup.connect(Crawler.URI + this.getHref()).timeout(0).get();
         HashMap<String, String> infoKV = new HashMap<>();
         try {
             Element infoElement = document.getElementsByClass("infobox").get(1);

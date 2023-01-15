@@ -22,6 +22,11 @@ public class Period {
     private final List<Event> events = new ArrayList<>();
     private final List<Festival> festivals = new ArrayList<>();
 
+    public Period() {
+        this.id = count;
+        count++;
+    }
+
     public Period(String name, String html){
         this.id = count;
         count++;
@@ -94,12 +99,12 @@ public class Period {
      * @throws IOException
      */
     public void setInfo() throws IOException {
-        Document document = Jsoup.connect(Crawler.URI + this.href).get();
+        Document document = Jsoup.connect(Crawler.URI + this.href).timeout(0).get();
         Elements periodElements = document.getElementsByAttributeValue("class", "readmore");
         if (!periodElements.isEmpty()) {
             for (Element periodE : periodElements) {
                 Element subPeriod = periodE.getElementsByAttributeValue("class", "btn").get(0);
-                Document subDoc = Jsoup.connect(Crawler.URI + subPeriod.attr("href")).get();
+                Document subDoc = Jsoup.connect(Crawler.URI + subPeriod.attr("href")).timeout(0).get();
                 // Lấy danh sách nhân vật liên quan đến thời kỳ lịch sử
                 try {
                     Element listRefCharacters = subDoc.getElementById("list-ref-characters");
