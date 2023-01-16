@@ -31,11 +31,12 @@ public class Crawler {
         writer.writeValue(new File("src/main/resources/json/periods.json"), new ArrayList<Period>());
         // Tạo document từ url dòng lịch sử
         Document document = Jsoup.connect(URI + TIMELINE_HREF).get();
-        Element mainContext = document.getElementById("jm-main");
+        Element mainContext = document.getElementById("Mod88");
+        mainContext = mainContext.getElementsByClass("module-ct").first();
 
         // Crawler các thời kỳ lịch sử
         List<Period> periods = new ArrayList<>();
-        Elements periodEs = mainContext.getElementsByAttributeValue("class", "level-0");
+        Elements periodEs = mainContext.getElementsByTag("li");
         for (Element periodE:periodEs) {
             String href = periodE.getElementsByTag("a").get(0).attr("href");
             String name = periodE.getElementsByTag("a").get(0).text();

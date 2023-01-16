@@ -9,44 +9,50 @@ import org.jsoup.select.Elements;
 import java.io.IOException;
 import java.util.HashMap;
 
-public class Place {
-    public static int count = 0;
-    private final int id;
-    private String name;
-    private String href;
+public class Place extends Model{
+    private String national;
+    private String location;
+    private String coordinates;
+    private String area;
 
-    public Place() {
-        this.id = count;
-        count++;
+    public Place(String name, String href) {
+        this.setName(name);
+        this.setHref(href);
     }
 
-    public Place(String name, String href){
-        this.id = count;
-        count++;
-        this.name = name;
-        this.href = href;
+    public String getNational() {
+        return national;
     }
 
-    public int getId() {
-        return id;
+    public void setNational(String national) {
+        this.national = national;
     }
 
-    public String getName() {
-        return name;
+    public String getLocation() {
+        return location;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setLocation(String location) {
+        this.location = location;
     }
 
-    public String getHref() {
-        return href;
+    public String getCoordinates() {
+        return coordinates;
     }
 
-    public void setHref(String href) {
-        this.href = href;
+    public void setCoordinates(String coordinates) {
+        this.coordinates = coordinates;
     }
 
+    public String getArea() {
+        return area;
+    }
+
+    public void setArea(String area) {
+        this.area = area;
+    }
+
+    @Override
     public void setInfo() throws IOException {
         Document document = Jsoup.connect(Crawler.URI + this.getHref()).timeout(0).get();
         HashMap<String, String> infoKV = new HashMap<>();
@@ -60,5 +66,12 @@ public class Place {
         } catch (Exception e) {
             System.out.println("Không có thông tin địa danh "+ this.getName() + ". " + e);
         }
+        this.setNational(infoKV.get("Quốc gia"));
+//        if (!infoKV.get("Vị trí").isEmpty()) this.setLocation(infoKV.get("Vị trí"));
+//        if (!infoKV.get("Địa điểm").isEmpty()) this.setLocation(infoKV.get("Địa điểm"));
+//        if (!infoKV.get("Khu vực").isEmpty()) this.setLocation(infoKV.get("Khu vực"));
+//        if (!infoKV.get("Địa chỉ").isEmpty()) this.setLocation(infoKV.get("Địa chỉ"));
+        this.setCoordinates(infoKV.get("Tọa độ"));
+        this.setArea(infoKV.get("Diện tích"));
     }
 }

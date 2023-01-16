@@ -9,11 +9,8 @@ import org.jsoup.select.Elements;
 import java.io.IOException;
 import java.util.HashMap;
 
-public class Person {
-    public static int count = 0;
-    private final int id;
-    private String name;
-    private String href;
+public class Person extends Model{
+    private String period;
     private String birth;
     private String death;
     private String reignTime;
@@ -23,35 +20,20 @@ public class Person {
     private String realName;
 
     public Person() {
-        this.id = count;
-        count++;
     }
 
-    public Person(String name, String href){
-        this.id = count;
-        count++;
-        this.name = name;
-        this.href = href;
+    public Person(String name, String href, String period) {
+        this.setPeriod(period);
+        this.setName(name);
+        this.setHref(href);
     }
 
-    public int getId() {
-        return id;
+    public String getPeriod() {
+        return period;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getHref() {
-        return href;
-    }
-
-    public void setHref(String href) {
-        this.href = href;
+    public void setPeriod(String period) {
+        this.period = period;
     }
 
     public String getBirth() {
@@ -110,6 +92,7 @@ public class Person {
         this.realName = realName;
     }
 
+    @Override
     public void setInfo() throws IOException {
         Document document = Jsoup.connect(Crawler.URI + this.getHref()).timeout(0).get();
         HashMap<String, String> infoKV = new HashMap<>();
