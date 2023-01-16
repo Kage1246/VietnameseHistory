@@ -44,21 +44,31 @@ public class Crawler {
             period.setInfo();
 
             // Print
-            System.out.println(period.getName());
+            System.out.println("=>" + period.getName());
             for (Person person:period.getPeople()) {
-                System.out.println("\t" + person.getHref());
+                System.out.println(person.getHref());
+                System.out.println(person.getName());
                 person.setInfo();
                 System.out.println("\tSinh: " + person.getBirth() + "\n"
-                        + "\tMất: " + person.getDeath() + "\n");
+                        + "\tMất: " + person.getDeath() + "\n"
+                        + "\tNiên hiệu: " + person.getAliases() + "\n"
+                        + "\tTiền nhiệm: " + person.getPredecessor() + "\n"
+                        + "\tKế nhiệm: " + person.getSuccessor() + "\n"
+                        + "\tTrị vì: " + person.getReignTime() + "\n"
+                        + "\tTên thật: " + person.getRealName() + "\n");
             }
             List<Person> listPerson = Arrays.asList(reader.readValue(new File("src/main/resources/json/people.json"), Person[].class));
             List<Person> people = new ArrayList<>(listPerson);
             people.addAll(period.getPeople());
             writer.writeValue(new File("src/main/resources/json/people.json"), people);
             for (Place place:period.getPlaces()) {
-                System.out.println("\t" + place.getHref());
-                System.out.println("\t" + place.getName());
+                System.out.println(place.getHref());
+                System.out.println(place.getName());
                 place.setInfo();
+                System.out.println("\tQuốc gia: " + place.getNational() + "\n"
+                        + "\tVị trí: " + place.getLocation() + "\n"
+                        + "\tTọa độ: " + place.getCoordinates() + "\n"
+                        + "\tDiện tích: " + place.getArea() + "\n");
             }
             List<Place> listPlace = Arrays.asList(reader.readValue(new File("src/main/resources/json/places.json"), Place[].class));
             List<Place> places = new ArrayList<>(listPlace);
