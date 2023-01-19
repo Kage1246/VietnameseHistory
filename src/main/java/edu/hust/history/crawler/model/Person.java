@@ -1,13 +1,19 @@
 package edu.hust.history.crawler.model;
 
 import edu.hust.history.crawler.Crawler;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class Person extends Model{
     private String period;
@@ -19,6 +25,19 @@ public class Person extends Model{
     private String aliases;
     private String realName;
 
+    private List<Person> personList = new ArrayList<Person>();
+
+    public static void getpersonList() throws IOException{
+        String file = "src/main/resources/json/people.json";
+        String jsonString = new String(Files.readAllBytes(Paths.get(file)));
+        JSONObject obj = new JSONObject(jsonString);
+        JSONArray arr = obj.getJSONArray("people"); // notice that `"posts": [...]`
+        for (int i = 0; i < arr.length(); i++)
+        {
+            String href = arr.getJSONObject(i).getString("href");
+            System.out.println(href);
+        }
+    }
     public Person() {
     }
 
@@ -27,6 +46,7 @@ public class Person extends Model{
         this.setName(name);
         this.setHref(href);
     }
+
 
     public String getPeriod() {
         return period;

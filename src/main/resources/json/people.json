@@ -1,4 +1,4 @@
-[ {
+{"people" :[ {
   "href" : "/nhan-vat/kinh-duong-vuong",
   "name" : "Kinh Dương Vương",
   "period" : "/dong-lich-su/hong-bang-va-van-lang",
@@ -273,4 +273,4 @@
   "successor" : null,
   "aliases" : null,
   "realName" : null
-} ]
+} ]}
